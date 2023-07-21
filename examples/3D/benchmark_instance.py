@@ -22,6 +22,16 @@ def plot_performance(taus, stats, name):
 
     return fig
 
+def plot_stat_comparison(taus, stats_list, model_names, stat='f1'):
+    """Compare one stat for several models on a single plot"""
+    fig, ax = plt.subplots(1, 1, figsize=(10, 5))
+    for i, stats in enumerate(stats_list):
+        ax.plot(taus, [s._asdict()[stat] for s in stats], '.-', lw=2, label=model_names[i])
+    ax.set_xlabel(r'IoU threshold $\tau$')
+    ax.set_ylabel(stat)
+    ax.grid()
+    ax.legend()
+
 if __name__=="__main__":
     path_images = Path.home() / "Desktop/Code/CELLSEG_BENCHMARK"
     gt_path = path_images / "TPH2_mesospim/test_data/labels/isotropic_visual.tif"
