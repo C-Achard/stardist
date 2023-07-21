@@ -1,4 +1,4 @@
-from pathlib import path
+from pathlib import Path
 from stardist.matching import matching_dataset
 
 def plot_performance(taus, stats):
@@ -21,7 +21,7 @@ def plot_performance(taus, stats):
     return fig
 
 if __name__=="__main__":
-    path_images = Path.home() / "Desktop/Code/CELLSEG_BENCHMARK/TPH2_DATA/visual_iso"
-    gt_path = path_images / "labels/visual_labels.tif"
-    
+    path_images = Path.home() / "Desktop/Code/CELLSEG_BENCHMARK"
+    gt_path = path_images / "TPH2_DATA/visual_iso/labels/visual_labels.tif"
+
 
