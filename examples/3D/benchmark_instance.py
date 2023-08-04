@@ -3,31 +3,31 @@ import matplotlib.pyplot as plt
 from tqdm.notebook import tqdm
 import matplotlib.pyplot as plt
 
-def plot_performance(taus, stats, name):
+def plot_performance(taus, stats, name, metric="IoU"):
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))
     fig.suptitle(name)
     for m in ('precision', 'recall', 'accuracy', 'f1', 'mean_true_score', 'mean_matched_score', 'panoptic_quality'):
         ax1.plot(taus, [s._asdict()[m] for s in stats], '.-', lw=2, label=m)
-    ax1.set_xlabel(r'IoU threshold $\tau$')
+    ax1.set_xlabel(f'{metric}'+ r' threshold $\tau$')
     ax1.set_ylabel('Metric value')
     ax1.grid()
     ax1.legend()
 
     for m in ('fp', 'tp', 'fn'):
         ax2.plot(taus, [s._asdict()[m] for s in stats], '.-', lw=2, label=m)
-    ax2.set_xlabel(r'IoU threshold $\tau$')
+    ax2.set_xlabel(f'{metric}'+r' threshold $\tau$')
     ax2.set_ylabel('Number #')
     ax2.grid()
     ax2.legend()
 
     return fig
 
-def plot_stat_comparison(taus, stats_list, model_names, stat='f1'):
+def plot_stat_comparison(taus, stats_list, model_names, stat='f1', metric="IoU"):
     """Compare one stat for several models on a single plot"""
     fig, ax = plt.subplots(1, 1, figsize=(10, 5))
     for i, stats in enumerate(stats_list):
         ax.plot(taus, [s._asdict()[stat] for s in stats], '.-', lw=2, label=model_names[i])
-    ax.set_xlabel(r'IoU threshold $\tau$')
+    ax.set_xlabel(f'{metric}' + r' threshold $\tau$')
     ax.set_ylabel(stat)
     ax.grid()
     ax.legend()
